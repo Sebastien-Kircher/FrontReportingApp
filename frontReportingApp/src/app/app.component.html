@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Mes appareils</h2>
+      <ul class="list-group">
+        <app-dashboard [appareilName]="appareilOne" [appareilStatus]="'éteint'"></app-dashboard>
+        <app-dashboard [appareilName]="appareilTwo" [appareilStatus]="'allumé'"></app-dashboard>
+        <app-dashboard [appareilName]="appareilThree" [appareilStatus]="'éteint'"></app-dashboard>
+      </ul>
+      <button class="btn btn-success" 
+      [disabled]="!isAuth" 
+      (click)="onAllumer()">Tout allumer</button>
+    </div>
+  </div>
+</div>
+
