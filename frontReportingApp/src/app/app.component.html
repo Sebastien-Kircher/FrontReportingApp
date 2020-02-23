@@ -1,15 +1,28 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h2>Mes appareils</h2>
+      <h2>Mes utilisateurs</h2>
       <ul class="list-group">
-        <app-dashboard [appareilName]="appareilOne" [appareilStatus]="'éteint'"></app-dashboard>
-        <app-dashboard [appareilName]="appareilTwo" [appareilStatus]="'allumé'"></app-dashboard>
-        <app-dashboard [appareilName]="appareilThree" [appareilStatus]="'éteint'"></app-dashboard>
+        <app-user *ngFor="let user of users; let i = index"
+        [id] = "user.id"
+        [firstName]="user.firstname"
+        [lastName]="user.lastname"
+        [email]="user.email"
+        [tel]="user.tel"
+        [index]="i"></app-user>
+        <!--
+        <app-dashboard *ngFor="let appareil of appareils; let i = index"
+        [appareilName]="appareil.name"
+        [appareilStatus]="appareil.status" 
+        [index]="i"></app-dashboard>
+        -->
       </ul>
-      <button class="btn btn-success" 
-      [disabled]="!isAuth" 
-      (click)="onAllumer()">Tout allumer</button>
+      <button class="btn btn-primary"
+        (click)="onSave()">Enregistrer utilisateur</button>
+        <button class="btn btn-primary"
+        (click)="onGet()">Liste utilisateurs</button>
+  
+      
     </div>
   </div>
 </div>

@@ -1,26 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AppareilService } from './services/appareil.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
   isAuth = false;
 
-  appareilOne = 'Machine à laver';
-  appareilTwo = 'Frigo';
-  appareilThree = 'Ordinateur';
+  appareils: any[];
+  users: any[];
   
-  constructor() {
-    setTimeout(
-      () => {
-        this.isAuth = true;
-      }, 4000
-    );
+  constructor(private appareilService: AppareilService, private userService: UserService) {
+
   }
+  
   onAllumer() {
-    console.log('On allume tout !');
+    this.appareilService.switchOnAll();
+  }
+  onEteindre() {
+      if(confirm('Etes-vous sûr de vouloir éteindre tous vos appareils ?')) {
+        this.appareilService.switchOffAll();
+      } else {
+        return null;
+      }
+  }
+  
+  onSave() {
+    this.userService.saveUserToServer();
 }
+  onGet(){
+    this.users = this.userService.users;
+    this.userService.updateUserFromServer().subscribe(data => {
+      this.users = data;
+    });
+    
+  }
+
+  ngOnInit() {
+    this.appareils = this.appareilService.appareils;
+  }
 }
 

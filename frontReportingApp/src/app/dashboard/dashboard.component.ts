@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AppareilService } from '../services/appareil.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,15 +9,23 @@ import { Component, OnInit, Input } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   @Input() appareilName: string;
-  @Input()appareilStatus: string;
+  @Input() appareilStatus: string;
+  @Input() index: number;
 
-  constructor() { }
+
+  constructor(private appareilService: AppareilService) { }
 
   ngOnInit() {
-  }
 
-  getStatus() {
-    return this.appareilStatus;
   }
+  onSwitch() {
+    if(this.appareilStatus === 'allumé') {
+      this.appareilService.switchOffOne(this.index);
+    } else if(this.appareilStatus === 'éteint') {
+      this.appareilService.switchOnOne(this.index);
+    }
+}
+
+
 
 }
